@@ -8,17 +8,16 @@ body {
     width: 100vw;
     height: 100vh;
     background-color: #f4f4f4;
-    display: flex;
+    /*display: flex;*/
 }
 
-.left-nav {
+/*.left-nav {
     background-color: #4d4d4d;
     width: 340px;
     height: 100%;
-}
+}*/
 
 .game-area {
-    background-color: blue;
     height: 100%;
     flex-grow: 1;
     padding: 5rem;
@@ -29,11 +28,23 @@ body {
 
 .game {
     background-color: pink;
+    max-width: 1220px;
+    max-height: 1220px;
+    display: grid;
+    grid-template-rows: auto auto auto auto auto auto auto auto auto;
+    grid-template-columns: auto auto auto auto auto auto auto auto auto;
+    border: 5px solid #000;
 }
 
 .game_block {
     background-color: white;
     border: 1px solid #000;
-    width: 40px;
-    height: 40px;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 32px;
+
 }
