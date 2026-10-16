@@ -3,6 +3,13 @@ class Sudoku{
     this.boardSize = 9;
     this.registeredKeys = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     this.board = null;
+    this.lastActive = {row: -1, col: -1};
+  }
+
+  init() {
+    this.generateBoard();
+    this.render();
+    this.registerEventListeners();
   }
 
   generateBoard() {
@@ -29,6 +36,9 @@ class Sudoku{
         blockEl.setAttribute('data-row', row_i);
         blockEl.setAttribute('data-col', col_i);
         blockEl.setAttribute('class', 'game_block');
+        if (this.lastActive.row === row_i && this.lastActive.col === col_i) {
+          blockEl.classList.add('active');
+        }
 
         this.needsBorder(blockEl, row_i, col_i);
 
@@ -45,20 +55,16 @@ class Sudoku{
       if (this.registeredKeys.includes(key)) {
         let el = document.querySelector('.active');
         if (el) {
-          const rowID = el.dataset.row;
-          const colID = el.dataset.col;
-          // this.checkValid(rowID, colID, key);
+          const rowID = Number(el.dataset.row);
+          const colID = Number(el.dataset.col);
           this.board[rowID][colID] = key;
           this.render();
-          // this.board[rowID][colID] = key;
-          // if (el) el.innerHTML = key;
-          // console.log(this.board);
-
         }
       }
     });
 
     document.addEventListener('click', (el) => {
+      this.lastActive = { row: Number(el.target.dataset.row), col: Number(el.target.dataset.col) };
       this.clearActives();
       el.target.classList.add('active');
     });
@@ -69,7 +75,6 @@ class Sudoku{
 
   clearActives() {
     document.querySelector('.active')?.classList.remove('active');
-
   }
 
   needsBorder(el, row_i, col_i) {
@@ -89,9 +94,7 @@ class Sudoku{
 
 game = new Sudoku();
 
-game.generateBoard();
-game.render();
-game.registerEventListeners();
+game.init();
 
 class Game {
 
