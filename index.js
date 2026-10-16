@@ -1,6 +1,7 @@
 class Sudoku{
   constructor() {
     this.boardSize = 9;
+    this.registeredKeys = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     this.board = null;
   }
 
@@ -19,18 +20,60 @@ class Sudoku{
   }
 
   render() {
-    const gameBoardEl = document.getElementById('game_board')
-    this.board.forEach((row, i) => {
-      row.forEach((el, index) => {
-        const blockEl = document.createElement('div');
-        blockEl.setAttribute('data-row', i);
-        blockEl.setAttribute('data-col', index);
-        blockEl.setAttribute('class', 'game_block')
-        blockEl.innerHTML = el;
+    const gameBoardEl = document.getElementById('game_board');
 
+    this.board.forEach((row, row_i) => {
+      row.forEach((col, col_i) => {
+        let blockEl = document.createElement('div');
+        blockEl.setAttribute('data-row', row_i);
+        blockEl.setAttribute('data-col', col_i);
+        blockEl.setAttribute('class', 'game_block');
+
+        this.needsBorder(blockEl, row_i, col_i);
+
+        blockEl.innerHTML = col;
         gameBoardEl.append(blockEl);
       });
-    })
+    });
+
+    this.registerEventListeners();
+  }
+
+  registerEventListeners() {
+    document.addEventListener('keypress', (event) => {
+      const key = Number(event.key);
+      if (this.registeredKeys.includes(key)) {
+        let el = document.querySelector('.active');
+        const rowID = el.dataset.row;
+        const colID = el.dataset.col;
+        this.checkValid(rowID, colID, key);
+        // this.board[rowID][colID] = key;
+        // if (el) el.innerHTML = key;
+        // console.log(this.board);
+      }
+    });
+
+    document.addEventListener('click', (el) => {
+      this.clearActives();
+      el.target.classList.add('active');
+    });
+  }
+
+  checkValid(row, col, key) {}
+
+  clearActives() {
+    document.querySelector('.active')?.classList.remove('active');
+
+  }
+
+  needsBorder(el, row_i, col_i) {
+    if (row_i === 2 || row_i === 5) {
+      el.classList.add('border_b');
+    }
+
+    if (col_i === 2 || col_i === 5) {
+      el.classList.add('border_r');
+    }
   }
 
   seedBoard() {
