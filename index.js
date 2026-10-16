@@ -42,7 +42,7 @@ class Sudoku{
 
         this.needsBorder(blockEl, row_i, col_i);
 
-        blockEl.innerHTML = col;
+        blockEl.innerHTML = col === 0 ? "" : col;
         gameBoardEl.append(blockEl);
       });
     });
