@@ -111,28 +111,34 @@ class Sudoku{
 
   getBlock(rowID, colID) {
     let block = [];
-    let blockInd = {row: -1, col: -1};
+    let blockInd = {row: -1, col: -1, row_end: -1, col_end: -1};
     if (rowID < 3) {
       blockInd.row = 0;
+      blockInd.row_end = 3;
     } else if(rowID < 6) {
-      blockInd.row = 1;
+      blockInd.row = 1 * 3;
+      blockInd.row_end = 6;
     } else {
-      blockInd.row = 2;
+      blockInd.row = 2 * 3;
+      blockInd.row_end = 9;
     }
 
     if (colID < 3) {
       blockInd.col = 0;
+      blockInd.col_end = 3;
     } else if(colID < 6) {
-      blockInd.col = 1;
+      blockInd.col = 1 * 3;
+      blockInd.col_end = 6;
     } else {
-      blockInd.col = 2;
+      blockInd.col = 2 * 3;
+      blockInd.col_end = 9;
     }
 
     for (let i = 0; i < this.boardSize; i++) {
-      if (i < blockInd.row * 3) continue;
+      if (i < blockInd.row || i >= blockInd.row_end) continue;
 
       for (let j = 0; j < this.boardSize; j++) {
-        if (j < blockInd.col * 3) continue;
+        if (j < blockInd.col || j >= blockInd.col_end) continue;
 
         block.push(this.board[i][j]);
       }
