@@ -75,11 +75,12 @@ class Sudoku{
   }
 
   isValid(rowID, colID, key) {
-    if (!this.RowIsValid(rowID, key)) return false;
+    if (!this.rowIsValid(rowID, key)) return false;
+    if (!this.colIsValid(colID, key)) return false;
     return true;
   }
 
-  RowIsValid(rowID, key) {
+  rowIsValid(rowID, key) {
     let row = this.board[rowID];
     let cleanRow = row.filter(el => el !== 0);
     let setRow = new Set(cleanRow);
@@ -87,7 +88,16 @@ class Sudoku{
     return cleanRow.length === setRow.size;
   }
 
-  checkCol(col, key) {}
+  colIsValid(colID, key) {
+    let col = this.board.map(row => {
+      return row[colID];
+    });
+
+    let cleanCol = col.filter(el => el !== 0);
+    let setCol = new Set(cleanCol);
+
+    return cleanCol.length === setCol.size;
+  }
 
   checkBlock(row, col, key) {}
 
