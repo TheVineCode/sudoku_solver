@@ -21,6 +21,7 @@ class Sudoku{
 
   render() {
     const gameBoardEl = document.getElementById('game_board');
+    gameBoardEl.innerHTML = '';
 
     this.board.forEach((row, row_i) => {
       row.forEach((col, col_i) => {
@@ -36,7 +37,6 @@ class Sudoku{
       });
     });
 
-    this.registerEventListeners();
   }
 
   registerEventListeners() {
@@ -44,12 +44,17 @@ class Sudoku{
       const key = Number(event.key);
       if (this.registeredKeys.includes(key)) {
         let el = document.querySelector('.active');
-        const rowID = el.dataset.row;
-        const colID = el.dataset.col;
-        this.checkValid(rowID, colID, key);
-        // this.board[rowID][colID] = key;
-        // if (el) el.innerHTML = key;
-        // console.log(this.board);
+        if (el) {
+          const rowID = el.dataset.row;
+          const colID = el.dataset.col;
+          // this.checkValid(rowID, colID, key);
+          this.board[rowID][colID] = key;
+          this.render();
+          // this.board[rowID][colID] = key;
+          // if (el) el.innerHTML = key;
+          // console.log(this.board);
+
+        }
       }
     });
 
@@ -59,7 +64,8 @@ class Sudoku{
     });
   }
 
-  checkValid(row, col, key) {}
+  checkValid(row, col, key) {
+  }
 
   clearActives() {
     document.querySelector('.active')?.classList.remove('active');
@@ -85,6 +91,7 @@ game = new Sudoku();
 
 game.generateBoard();
 game.render();
+game.registerEventListeners();
 
 class Game {
 
