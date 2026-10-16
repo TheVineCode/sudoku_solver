@@ -77,6 +77,7 @@ class Sudoku{
   isValid(rowID, colID, key) {
     if (!this.rowIsValid(rowID, key)) return false;
     if (!this.colIsValid(colID, key)) return false;
+    if (!this.blockIsValid(rowID, colID, key)) return false;
     return true;
   }
 
@@ -99,7 +100,46 @@ class Sudoku{
     return cleanCol.length === setCol.size;
   }
 
-  checkBlock(row, col, key) {}
+  blockIsValid(rowID, colID, key) {
+    let block = this.getBlock(rowID, colID);
+
+    let cleanBlock = block.filter(el => el !== 0);
+    let setBlock = new Set(cleanBlock);
+
+    return cleanBlock.length === setBlock.size;
+  }
+
+  getBlock(rowID, colID) {
+    let block = [];
+    let blockInd = {row: -1, col: -1};
+    if (rowID < 3) {
+      blockInd.row = 0;
+    } else if(rowID < 6) {
+      blockInd.row = 1;
+    } else {
+      blockInd.row = 2;
+    }
+
+    if (colID < 3) {
+      blockInd.col = 0;
+    } else if(colID < 6) {
+      blockInd.col = 1;
+    } else {
+      blockInd.col = 2;
+    }
+
+    for (let i = 0; i < this.boardSize; i++) {
+      if (i < blockInd.row * 3) continue;
+
+      for (let j = 0; j < this.boardSize; j++) {
+        if (j < blockInd.col * 3) continue;
+
+        block.push(this.board[i][j]);
+      }
+    }
+
+    return block;
+  }
 
   clearActives() {
     document.querySelector('.active')?.classList.remove('active');
