@@ -57,7 +57,11 @@ class Sudoku{
         if (el) {
           const rowID = Number(el.dataset.row);
           const colID = Number(el.dataset.col);
+          const previousVal = this.board[rowID][colID];
           this.board[rowID][colID] = key;
+          if (!this.isValid(rowID, colID, key)) {
+            this.board[rowID][colID] = previousVal;
+          }
           this.render();
         }
       }
@@ -70,8 +74,22 @@ class Sudoku{
     });
   }
 
-  checkValid(row, col, key) {
+  isValid(rowID, colID, key) {
+    if (!this.RowIsValid(rowID, key)) return false;
+    return true;
   }
+
+  RowIsValid(rowID, key) {
+    let row = this.board[rowID];
+    let cleanRow = row.filter(el => el !== 0);
+    let setRow = new Set(cleanRow);
+
+    return cleanRow.length === setRow.size;
+  }
+
+  checkCol(col, key) {}
+
+  checkBlock(row, col, key) {}
 
   clearActives() {
     document.querySelector('.active')?.classList.remove('active');
