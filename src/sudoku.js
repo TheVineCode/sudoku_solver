@@ -25,19 +25,27 @@ export class Sudoku {
       this.board[row][col] = val;
       return true;
     }
+
     return false;
   }
 
   isValid(row, col, val) {
-    if (this.rowIsValid(row, val)) return true;
-    if (this.colIsValid(col, val)) return true;
-    return false;
+    if (!this.isValidRowPlacement(row, val)) return false;
+    if (!this.isValidColPlacement(col, val)) return false;
+    return true;
   }
 
-  rowIsValid(row, val) {
+  isValidRowPlacement(row, val) {
     let validRow = this.board[row];
 
     return !validRow.includes(val);
   }
 
+  isValidColPlacement(col, val) {
+    let validCol = this.board.map(row => {
+      return row[col];
+    });
+
+    return !validCol.includes(val);
+  }
 }

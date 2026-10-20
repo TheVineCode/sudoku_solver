@@ -27,3 +27,12 @@ describe("Sudoku", () => {
     expect(sudoku.board[0][1]).toBe(0);
   });
 });
+
+describe("Sudoku", () => {
+  it("A duplicate value cannot be set in the same column", () => {
+    const sudoku = new Sudoku();
+    expect(sudoku.setValue(0, 0, 5)).toBe(true);
+    expect(sudoku.setValue(1, 0, 5)).toBe(false);
+    expect(sudoku.board[1][0]).toBe(0);
+  });
+});
