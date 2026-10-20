@@ -70,7 +70,8 @@ class Sudoku{
     document.addEventListener('click', (el) => {
       this.lastActive = { row: Number(el.target.dataset.row), col: Number(el.target.dataset.col) };
       this.clearActives();
-      el.target.classList.add('active');
+      // console.log(el.target.classList.includes('game_block'));
+      if (el.target.classList[0] == 'game_block') el.target.classList.add('active');
     });
   }
 

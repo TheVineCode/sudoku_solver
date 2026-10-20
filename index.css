@@ -13,6 +13,7 @@ body {
 
 .game-area {
     height: 100%;
+    background-color: green;
     flex-grow: 1;
     padding: 5rem;
     display: flex;
@@ -21,9 +22,8 @@ body {
 }
 
 .game {
-    background-color: pink;
-    max-width: 1220px;
-    max-height: 1220px;
+    width: 40vw;
+    height: 40vw;
     display: grid;
     grid-template-rows: auto auto auto auto auto auto auto auto auto;
     grid-template-columns: auto auto auto auto auto auto auto auto auto;
@@ -33,14 +33,13 @@ body {
 .game_block {
     background-color: white;
     border: 1px solid #000;
-    width: 80px;
-    height: 80px;
+    min-width: calc((40vw / 9) - 1px);
+    min-height: calc((40vw / 9) - 1px);
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 800;
     font-size: 32px;
-
 }
 
 .border_b {
