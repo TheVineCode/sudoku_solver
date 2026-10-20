@@ -167,7 +167,7 @@ class Sudoku{
   }
 }
 
-game = new Sudoku();
+const game = new Sudoku();
 
 game.init();
 
