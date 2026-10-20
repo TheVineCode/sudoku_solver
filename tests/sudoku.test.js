@@ -36,3 +36,17 @@ describe("Sudoku", () => {
     expect(sudoku.board[1][0]).toBe(0);
   });
 });
+
+describe("Sudoku", () => {
+  it("A duplicate value cannot be set in the same main block", () => {
+    const sudoku = new Sudoku();
+    expect(sudoku.setValue(0, 0, 5)).toBe(true);
+    expect(sudoku.setValue(2, 2, 5)).toBe(false);
+    expect(sudoku.board[2][2]).toBe(0);
+
+    //middle block
+    expect(sudoku.setValue(3, 4, 1)).toBe(true);
+    expect(sudoku.setValue(4, 5, 1)).toBe(false);
+    expect(sudoku.board[4][5]).toBe(0);
+  });
+});
