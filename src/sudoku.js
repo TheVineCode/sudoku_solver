@@ -52,7 +52,7 @@ export class Sudoku {
   }
 
   isValidColPlacement(col, val) {
-    let validCol = this.board.map(row => {
+    let validCol = this.board.map((row) => {
       return row[col];
     });
 
@@ -62,16 +62,16 @@ export class Sudoku {
   isValidMainBlockPlacement(row, col, val) {
     let block = this.getMainBlockValues(row, col);
 
-    return this.clearToPlaceValue(block, val)
+    return this.clearToPlaceValue(block, val);
   }
 
   getMainBlockValues(rowID, colID) {
     let block = [];
-    let blockInd = {row: -1, col: -1, row_end: -1, col_end: -1};
+    let blockInd = { row: -1, col: -1, row_end: -1, col_end: -1 };
     if (rowID < 3) {
       blockInd.row = 0;
       blockInd.row_end = 3;
-    } else if(rowID < 6) {
+    } else if (rowID < 6) {
       blockInd.row = 1 * 3;
       blockInd.row_end = 6;
     } else {
@@ -82,7 +82,7 @@ export class Sudoku {
     if (colID < 3) {
       blockInd.col = 0;
       blockInd.col_end = 3;
-    } else if(colID < 6) {
+    } else if (colID < 6) {
       blockInd.col = 1 * 3;
       blockInd.col_end = 6;
     } else {

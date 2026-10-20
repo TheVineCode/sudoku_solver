@@ -1,6 +1,6 @@
 import { Sudoku } from "./src/sudoku.js";
 
-class SudokuApp{
+class SudokuApp {
   constructor(boardEl) {
     this.boardEl = boardEl;
     this.game = new Sudoku();
@@ -17,8 +17,8 @@ class SudokuApp{
 
     this.game.board.forEach((row, rowIndex) => {
       row.forEach((value, colIndex) => {
-        let block = document.createElement('div');
-        block.className = 'game_block';
+        let block = document.createElement("button");
+        block.className = "game_block";
         block.dataset.row = rowIndex;
         block.dataset.col = colIndex;
         block.textContent = value === 0 ? "" : String(value);
@@ -27,7 +27,7 @@ class SudokuApp{
           this.selectedCell?.row === rowIndex &&
           this.selectedCell?.col === colIndex
         ) {
-          block.classList.add('active');
+          block.classList.add("active");
         }
 
         this.needsBorder(block, rowIndex, colIndex);
@@ -38,27 +38,27 @@ class SudokuApp{
   }
 
   registerEventListeners() {
-    this.boardEl.addEventListener('click', (event) => {
+    this.boardEl.addEventListener("click", (event) => {
       if (!(event.target instanceof Element)) return;
 
-      const block = event.target.closest('.game_block');
+      const block = event.target.closest(".game_block");
       if (!block) return;
 
       this.selectedCell = {
         row: Number(block.dataset.row),
-        col: Number(block.dataset.col)
-      }
+        col: Number(block.dataset.col),
+      };
 
       this.render();
     });
 
-    document.addEventListener('keydown', (event) => {
+    document.addEventListener("keydown", (event) => {
       if (!this.selectedCell) return;
 
       const { row, col } = this.selectedCell;
 
       if (/^[1-9]$/.test(event.key)) {
-        const accepted = this.game.setValue(row, col, Number(event.key))
+        const accepted = this.game.setValue(row, col, Number(event.key));
 
         if (accepted) {
           this.render();
@@ -67,7 +67,7 @@ class SudokuApp{
         return;
       }
 
-      if (event.key === 'Backspace' || event.key === 'Delete') {
+      if (event.key === "Backspace" || event.key === "Delete") {
         this.game.clearValue(row, col);
         this.render();
       }
@@ -75,21 +75,21 @@ class SudokuApp{
   }
 
   clearActives() {
-    document.querySelector('.active')?.classList.remove('active');
+    document.querySelector(".active")?.classList.remove("active");
   }
 
   needsBorder(el, rowIndex, colIndex) {
     if (rowIndex === 2 || rowIndex === 5) {
-      el.classList.add('border_b');
+      el.classList.add("border_b");
     }
 
     if (colIndex === 2 || colIndex === 5) {
-      el.classList.add('border_r');
+      el.classList.add("border_r");
     }
   }
 }
 
-const boardElement = document.getElementById('game_board');
+const boardElement = document.getElementById("game_board");
 const game = new SudokuApp(boardElement);
 
 game.init();
