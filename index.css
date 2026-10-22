@@ -8,6 +8,21 @@
 body {
   width: 100%;
   height: 100vh;
+  display: flex;
+}
+
+button {
+  padding: 20px;
+}
+
+.left-nav {
+  background-color: #888888;
+  min-width: 200px;
+}
+
+.game-section {
+  background-color: #f4f4f4;
+  flex-grow: 1;
 }
 
 .game-area {
