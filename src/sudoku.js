@@ -169,10 +169,7 @@ export class Sudoku {
   }
 
   solve() {
-    const solver = new SudokuSolver(
-      this.board,
-      this.setValue.bind(this)
-    );
+    const solver = new SudokuSolver(this);
     return solver.solve();
   }
 }
