@@ -1,14 +1,15 @@
 import { Sudoku } from "./src/sudoku.js";
+import { SudokuSolver } from "./src/sudoku_solver.js";
 
 class SudokuApp {
   constructor(boardEl) {
     this.boardEl = boardEl;
     this.game = new Sudoku();
     this.selectedCell = null;
+    this.solver = new SudokuSolver(this.game);
   }
 
   init() {
-    // this.game.seedGame();
     this.render();
     this.registerEventListeners();
   }
@@ -72,6 +73,18 @@ class SudokuApp {
         this.game.clearValue(row, col);
         this.render();
       }
+    });
+
+    const resetBtn = document.getElementById("reset_btn");
+    resetBtn.addEventListener("click", () => {
+      this.game.initBoard();
+      this.game.seedGame();
+      this.render();
+    });
+
+    const solveBtn = document.getElementById("solve_btn");
+    solveBtn.addEventListener("click", () => {
+      this.solver.solve();
     });
   }
 
