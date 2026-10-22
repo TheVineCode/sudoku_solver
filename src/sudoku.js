@@ -43,9 +43,10 @@ export class Sudoku {
   }
 
   isValid(row, col, val) {
-    if (!this.isValidRowPlacement(row, val)) return false;
-    if (!this.isValidColPlacement(col, val)) return false;
-    if (!this.isValidMainBlockPlacement(row, col, val)) return false;
+    if (!this.clearToPlaceValue(this.rowValues(row), val)) return false;
+    if (!this.clearToPlaceValue(this.colValues(col), val)) return false;
+    if (!this.clearToPlaceValue(this.blockValues(row, col), val)) return false;
+
     return true;
   }
 
@@ -53,24 +54,18 @@ export class Sudoku {
     return !arr.includes(val);
   }
 
-  isValidRowPlacement(row, val) {
-    let validRow = this.board[row];
-
-    return this.clearToPlaceValue(validRow, val);
+  rowValues(row) {
+    return this.board[row];
   }
 
-  isValidColPlacement(col, val) {
-    let validCol = this.board.map((row) => {
+  colValues(col) {
+    return this.board.map((row) => {
       return row[col];
     });
-
-    return this.clearToPlaceValue(validCol, val);
   }
 
-  isValidMainBlockPlacement(row, col, val) {
-    let block = this.getMainBlockValues(row, col);
-
-    return this.clearToPlaceValue(block, val);
+  blockValues(row, col) {
+    return this.getMainBlockValues(row, col);
   }
 
   getMainBlockValues(rowID, colID) {
