@@ -8,6 +8,7 @@ class SudokuApp {
   }
 
   init() {
+    // this.game.seedGame();
     this.render();
     this.registerEventListeners();
   }

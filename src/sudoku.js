@@ -18,7 +18,6 @@ export class Sudoku {
     }
 
     this.board = board;
-    this.seedGame();
   }
 
   clearValue(row, col) {
@@ -27,6 +26,10 @@ export class Sudoku {
   }
 
   setValue(row, col, val) {
+    if (val < 1 || val > 9) {
+      return false;
+    }
+
     if (this.isValid(row, col, val)) {
       this.board[row][col] = val;
 
