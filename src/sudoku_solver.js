@@ -1,9 +1,13 @@
 export class SudokuSolver {
-  constructor(game) {
-    this.game = game
+  constructor(board, fn) {
+    this.board = board;
+    this.setValue = fn;
   }
 
   solve() {
-    console.log(this.game.board);
+    this.board.forEach((row, index) => {
+      console.log(row, index);
+    })
+    return true;
   }
 }

@@ -1,3 +1,5 @@
+import { SudokuSolver } from "./sudoku_solver";
+
 export class Sudoku {
   constructor() {
     this.boardSize = 9;
@@ -164,5 +166,13 @@ export class Sudoku {
 
     this.setValue(8, 1, 7);
     this.setValue(8, 5, 6);
+  }
+
+  solve() {
+    const solver = new SudokuSolver(
+      this.board,
+      this.setValue.bind(this)
+    );
+    return solver.solve();
   }
 }
