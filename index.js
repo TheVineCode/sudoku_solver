@@ -74,10 +74,6 @@ class SudokuApp {
     });
   }
 
-  clearActives() {
-    document.querySelector(".active")?.classList.remove("active");
-  }
-
   needsBorder(el, rowIndex, colIndex) {
     if (rowIndex === 2 || rowIndex === 5) {
       el.classList.add("border_b");
