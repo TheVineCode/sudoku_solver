@@ -11,13 +11,29 @@ export class SudokuSolver {
 
   solve() {
     this.buildData();
-    for (let i = 0; i < this.game.board.length; i++) {
-      for (let j = 0; j < this.game.board.length; j++) {
-        const row_column_vals = new Set(this.rows[i].concat(this.columns[i]).filter((cell) => cell !== 0));
-        this.cellNonePossibleAnswers.push(row_column_vals);
-        console.log(this.validNumbers.difference(row_column_vals));
+    while (!this.game.checkComplete()) {
+      for (let i = 0; i < this.game.board.length; i++) {
+        for (let j = 0; j < this.game.board.length; j++) {
+          if (this.rows[i][j] !== 0) continue;
+
+          const row_column_vals = new Set(
+            this.game.rowValues(i).concat( this.game.colValues(j) ).concat( this.game.blockValues(i, j) ).filter((cell) => cell !== 0));
+          const validValues = this.validNumbers.difference(row_column_vals);
+          this.cellNonePossibleAnswers.push({
+            "row": i,
+            "col": j,
+            "invalid": row_column_vals,
+            "valid": validValues
+          });
+
+          const vals = validValues.values();
+          if (validValues.size === 1) {
+            this.game.board[i][j] = vals.next().value;
+          }
+        }
       }
     }
+    return true;
   }
 
   buildData() {

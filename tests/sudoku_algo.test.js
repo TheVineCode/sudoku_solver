@@ -5,8 +5,8 @@ describe("Sudoku Solver", () => {
   it("Solver fills in values", () => {
     const sudoku = new Sudoku();
 
-    expect(sudoku.solve()).toBe(undefined);
-
+    expect(sudoku.seedGame()).toBe(true);
+    expect(sudoku.solve()).toBe(true);
 
   })
 })

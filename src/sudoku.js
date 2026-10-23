@@ -161,6 +161,8 @@ export class Sudoku {
 
     this.setValue(8, 1, 7);
     this.setValue(8, 5, 6);
+
+    return true;
   }
 
   solve() {
