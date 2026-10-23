@@ -7,6 +7,5 @@ describe("Sudoku Solver", () => {
 
     expect(sudoku.seedGame()).toBe(true);
     expect(sudoku.solve()).toBe(true);
-
-  })
-})
+  });
+});
