@@ -21,7 +21,7 @@ class SudokuApp {
         block.className = "game_block";
         block.dataset.row = rowIndex;
         block.dataset.col = colIndex;
-        block.textContent = value === 0 ? "" : String(value);
+        block.textContent = value === null ? "" : String(value);
 
         if (
           this.selectedCell?.row === rowIndex &&
@@ -74,9 +74,9 @@ class SudokuApp {
     });
 
     const resetBtn = document.getElementById("reset_btn");
-    resetBtn.addEventListener("click", () => {
+    resetBtn.addEventListener("click", async () => {
       this.game.initBoard();
-      this.game.seedGame();
+      await this.game.seedGame();
       this.render();
     });
 
