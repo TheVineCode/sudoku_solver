@@ -18,6 +18,9 @@ button {
 .left-nav {
   background-color: #888888;
   min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
 
 .game-section {

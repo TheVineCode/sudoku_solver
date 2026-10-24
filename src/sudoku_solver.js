@@ -14,14 +14,14 @@ export class SudokuSolver {
     while (!this.game.checkComplete()) {
       for (let i = 0; i < this.game.board.length; i++) {
         for (let j = 0; j < this.game.board.length; j++) {
-          if (this.rows[i][j] !== 0) continue;
+          if (this.rows[i][j] !== null) continue;
 
           const row_column_vals = new Set(
             this.game
               .rowValues(i)
               .concat(this.game.colValues(j))
               .concat(this.game.blockValues(i, j))
-              .filter((cell) => cell !== 0),
+              .filter((cell) => cell !== null),
           );
           const validValues = this.validNumbers.difference(row_column_vals);
           this.cellNonePossibleAnswers.push({

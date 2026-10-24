@@ -21,7 +21,7 @@ class SudokuApp {
         block.className = "game_block";
         block.dataset.row = rowIndex;
         block.dataset.col = colIndex;
-        block.textContent = value === 0 ? "" : String(value);
+        block.textContent = value === null ? "" : String(value);
 
         if (
           this.selectedCell?.row === rowIndex &&
@@ -59,6 +59,7 @@ class SudokuApp {
 
       if (/^[1-9]$/.test(event.key)) {
         const accepted = this.game.setValue(row, col, Number(event.key));
+        console.log(accepted);
 
         if (accepted) {
           this.render();
@@ -74,17 +75,33 @@ class SudokuApp {
     });
 
     const resetBtn = document.getElementById("reset_btn");
-    resetBtn.addEventListener("click", () => {
-      this.game.initBoard();
-      this.game.seedGame();
+    const solveBtn = document.getElementById("solve_btn");
+    const easyLevel = document.getElementById("easy_level");
+    const mediumLevel = document.getElementById("medium_level");
+    const hardLevel = document.getElementById("hard_level");
+
+    resetBtn.addEventListener("click", async () => {
+      this.game.reset();
       this.render();
     });
 
-    const solveBtn = document.getElementById("solve_btn");
     solveBtn.addEventListener("click", () => {
       this.game.solve();
       this.render();
     });
+
+    easyLevel.addEventListener('click', async () => {
+      await this.game.seedGame("easy");
+      this.render();
+    })
+    mediumLevel.addEventListener('click', async () => {
+      await this.game.seedGame("medium");
+      this.render();
+    })
+    hardLevel.addEventListener('click', async () => {
+      await this.game.seedGame("hard");
+      this.render();
+    })
   }
 
   needsBorder(el, rowIndex, colIndex) {

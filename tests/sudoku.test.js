@@ -16,6 +16,19 @@ describe("Sudoku", () => {
     expect(sudoku.board[0][0]).toBe(5);
   });
 
+  it("keeps the level start board separate from the current board", () => {
+    const sudoku = new Sudoku();
+
+    expect(sudoku.board).not.toBe(sudoku.boardLevelStart);
+    expect(sudoku.setValue(0, 0, 5)).toBe(true);
+    expect(sudoku.boardLevelStart[0][0]).toBe(null);
+
+    sudoku.reset();
+
+    expect(sudoku.board[0][0]).toBe(null);
+    expect(sudoku.board).not.toBe(sudoku.boardLevelStart);
+  });
+
   it("A duplicate value cannot be set in the same row", () => {
     const sudoku = new Sudoku();
     expect(sudoku.setValue(0, 0, 5)).toBe(true);
