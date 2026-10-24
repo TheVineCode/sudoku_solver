@@ -3,8 +3,6 @@ import { SudokuSolver } from "./sudoku_solver";
 export class Sudoku {
   constructor() {
     this.boardSize = 9;
-    this.board = [];
-    this.solvedBoard = [];
 
     this.initBoard();
   }
@@ -21,6 +19,15 @@ export class Sudoku {
     }
 
     this.board = board;
+    this.boardLevelStart = this.copyBoard(board);
+  }
+
+  copyBoard(board) {
+    return board.map((row) => [...row]);
+  }
+
+  reset() {
+    this.board = this.copyBoard(this.boardLevelStart);
   }
 
   clearValue(row, col) {
@@ -33,6 +40,7 @@ export class Sudoku {
       return false;
     }
 
+    console.log(this.boardLevelStart);
     if (this.isValid(row, col, val)) {
       this.board[row][col] = val;
 
@@ -115,9 +123,8 @@ export class Sudoku {
     console.log("Game completed");
   }
 
-  async seedGame() {
-    await fetch(
-      "https://api.api-ninjas.com/v1/sudokugenerate?difficulty=medium&width=3&height=3",
+  async seedGame(difficulty) {
+    await fetch( `https://api.api-ninjas.com/v1/sudokugenerate?difficulty=${difficulty}&width=3&height=3`,
       {
         method: "GET",
         headers: {
@@ -127,7 +134,8 @@ export class Sudoku {
       }
     ).then(async result => {
       const data = await result.json();
-      this.board = data.puzzle;
+      this.board = this.copyBoard(data.puzzle);
+      this.boardLevelStart = this.copyBoard(data.puzzle);
       this.solvedBoard = data.solution;
     });
 
